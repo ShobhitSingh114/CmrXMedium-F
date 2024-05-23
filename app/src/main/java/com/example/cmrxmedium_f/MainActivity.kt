@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.content.ContextCompat
+import com.example.cmrxmedium_f.presentation.CameraPreviewScreen
 import com.example.cmrxmedium_f.ui.theme.CmrXMediumFTheme
 
 class MainActivity : ComponentActivity() {
@@ -21,7 +22,7 @@ class MainActivity : ComponentActivity() {
     private val cameraPermissionRequest =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
             if (granted) {
-                // TODO() = Implement Camera related code
+                setCameraPreview()
             } else {
                 // TODO() = Camera Permission denied
             }
@@ -35,20 +36,28 @@ class MainActivity : ComponentActivity() {
             ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA) -> {
                 // TODO() = Camera Permission granted
                 // TODO() = Implement Camera related code
+                setCameraPreview()
             }
             else -> {
                 cameraPermissionRequest.launch(android.Manifest.permission.CAMERA)
             }
 
         }
+//        setContent {
+//            CmrXMediumFTheme {
+//
+//                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+////                    CameraPreviewScreen()
+//                }
+//            }
+//        }
+    }
 
-
-
+    private fun setCameraPreview() {
         setContent {
             CmrXMediumFTheme {
-
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-
+                    CameraPreviewScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
